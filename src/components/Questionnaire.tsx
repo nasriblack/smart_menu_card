@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ChevronRight } from 'lucide-react';
+import React, { useState } from "react";
+import { ChevronRight } from "lucide-react";
 
 interface Question {
   id: string;
@@ -9,20 +9,25 @@ interface Question {
 
 const questions: Question[] = [
   {
-    id: 'preference',
-    text: 'What are you in the mood for today?',
-    options: ['Drinks', 'Coffee', 'Desserts', 'I\'m not sure']
+    id: "preference",
+    text: "What are you in the mood for today?",
+    options: ["Drinks", "Coffee", "Desserts", "I'm not sure"],
   },
   {
-    id: 'taste',
-    text: 'Do you prefer something...',
-    options: ['Sweet', 'Refreshing', 'Rich & Bold', 'Light & Subtle']
+    id: "taste",
+    text: "Do you prefer something...",
+    options: ["Sweet", "Refreshing", "Rich & Bold", "Light & Subtle"],
   },
   {
-    id: 'occasion',
-    text: 'What\'s the occasion?',
-    options: ['Casual Meeting', 'Quick Break', 'Special Celebration', 'Just Browsing']
-  }
+    id: "occasion",
+    text: "What's the occasion?",
+    options: [
+      "Casual Meeting",
+      "Quick Break",
+      "Special Celebration",
+      "Just Browsing",
+    ],
+  },
 ];
 
 interface QuestionnaireProps {
@@ -36,7 +41,7 @@ export const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete }) => {
   const handleAnswer = (answer: string) => {
     const newAnswers = {
       ...answers,
-      [questions[currentQuestion].id]: answer
+      [questions[currentQuestion].id]: answer,
     };
     setAnswers(newAnswers);
 
@@ -57,12 +62,14 @@ export const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete }) => {
             <div
               key={index}
               className={`h-2 flex-1 mx-1 rounded-full ${
-                index <= currentQuestion ? 'bg-[#d4af37]' : 'bg-gray-200'
+                index <= currentQuestion ? "bg-[#d4af37]" : "bg-gray-200"
               }`}
             />
           ))}
         </div>
-        <h3 className="text-2xl font-serif text-[#2c2c2c] mb-2">{question.text}</h3>
+        <h3 className="text-2xl font-serif text-[#2c2c2c] mb-2">
+          {question.text}
+        </h3>
       </div>
 
       <div className="space-y-3">
@@ -73,7 +80,9 @@ export const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete }) => {
             className="w-full text-left px-6 py-4 rounded-xl border-2 border-gray-100 hover:border-[#d4af37] 
                      hover:bg-[#fff8e7] transition-all duration-300 group flex justify-between items-center"
           >
-            <span className="text-lg text-gray-700 group-hover:text-[#2c2c2c]">{option}</span>
+            <span className="text-lg text-gray-700 group-hover:text-[#2c2c2c]">
+              {option}
+            </span>
             <ChevronRight className="text-gray-400 group-hover:text-[#d4af37] transition-colors duration-300" />
           </button>
         ))}
