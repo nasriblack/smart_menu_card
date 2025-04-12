@@ -100,3 +100,7 @@ Built using **Next.js**, **TypeScript**, **TailwindCSS**, and **Vite**, Smart Me
 - Introduce gamification elements to engage users further.
 
 ---
+
+## Website and References
+
+---
