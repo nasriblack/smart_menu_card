@@ -89,10 +89,17 @@ function App() {
                         {category.items.map((item) => (
                           <div
                             key={item.id}
-                            className="flex justify-between items-start group"
+                            className="flex justify-between items-start group items-center gap-5"
                           >
+                            <img
+                              src="https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&q=80&w=2070"
+                              width={50}
+                              height={50}
+                              className="w-20 h-20 rounded-full object-cover border-2 border-[#f5d76e]"
+                              alt="Picture of the author"
+                            />
                             <div className="flex-1">
-                              <div className="flex items-center">
+                              <div className="flex items-center gap-5">
                                 <h3 className="text-xl font-medium group-hover:text-yellow-500 transition-colors duration-300">
                                   {item.name}
                                 </h3>
