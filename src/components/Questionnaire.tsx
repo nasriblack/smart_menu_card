@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, X } from "lucide-react";
 
 interface Question {
   id: string;
@@ -32,9 +32,13 @@ const questions: Question[] = [
 
 interface QuestionnaireProps {
   onComplete: (answers: Record<string, string>) => void;
+  setShowQuestionnaire: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete }) => {
+export const Questionnaire: React.FC<QuestionnaireProps> = ({
+  onComplete,
+  setShowQuestionnaire,
+}) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
 
@@ -52,11 +56,26 @@ export const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete }) => {
     }
   };
 
+  const skipQuestionnaire = () => {
+    setShowQuestionnaire(false);
+  };
+
   const question = questions[currentQuestion];
 
   return (
     <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8">
       <div className="mb-8">
+        <div className="flex justify-between items-center mb-8">
+          <h2 className="text-3xl font-serif text-[#2c2c2c]">
+            Let us help you decide
+          </h2>
+          <button
+            onClick={skipQuestionnaire}
+            className="text-gray-500 hover:text-gray-700 flex items-center gap-2"
+          >
+            Skip <X size={20} />
+          </button>
+        </div>
         <div className="flex justify-between mb-4">
           {questions.map((_, index) => (
             <div

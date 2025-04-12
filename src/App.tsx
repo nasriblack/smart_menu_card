@@ -16,7 +16,7 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f5f0]">
+    <div className="min-h-screen bg-[#2c2c2c]">
       {/* Hero Section */}
       <div className="bg-[#2c2c2c] text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -31,9 +31,18 @@ function App() {
       </div>
 
       {/* Questionnaire or Menu */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div
+        className={
+          showQuestionnaire
+            ? "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16"
+            : "sm:px-0 px-8 "
+        }
+      >
         {showQuestionnaire ? (
-          <Questionnaire onComplete={handleQuestionnaireComplete} />
+          <Questionnaire
+            onComplete={handleQuestionnaireComplete}
+            setShowQuestionnaire={setShowQuestionnaire}
+          />
         ) : (
           <>
             {userAnswers && (
@@ -46,48 +55,64 @@ function App() {
                 </button>
               </div>
             )}
-            {menuData.map((category) => (
-              <div key={category.id} className="mb-20">
-                <div className="text-center mb-12">
-                  <h2 className="text-4xl font-serif text-[#2c2c2c] relative inline-block">
-                    {category.name}
-                    <div className="absolute left-0 right-0 h-0.5 bg-[#d4af37] bottom-0 transform -translate-y-2"></div>
-                  </h2>
-                </div>
+            <div className="bg-[#2c2c2c] text-white">
+              {menuData.map((category) => (
+                <div key={category.id} className="relative">
+                  {/* Fixed Background Section */}
+                  <div
+                    className="h-[35vh] bg-fixed bg-center bg-cover relative"
+                    style={{
+                      backgroundColor: !category.with_img
+                        ? "#2c2c2c"
+                        : undefined,
+                      backgroundImage: category.with_img
+                        ? `linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url(${category.backgroundImage})`
+                        : undefined,
+                      backgroundPosition: "center 10%", // Show specific part of image
+                    }}
+                  >
+                    {/* Fixed text overlay */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                      <h2 className="text-5xl font-bold mb-4">
+                        {category.name}
+                      </h2>
+                      <p className="text-xl italic text-gray-300">
+                        - {category.subtitle} -
+                      </p>
+                    </div>
+                  </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                  {category.items.map((item) => (
-                    <div
-                      key={item.id}
-                      className="group relative overflow-hidden rounded-2xl shadow-xl bg-white transform transition-all duration-300 hover:-translate-y-2"
-                    >
-                      <div className="relative h-64 overflow-hidden">
-                        <img
-                          src={item.image}
-                          alt={item.name}
-                          className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-black opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-                      </div>
-
-                      <div className="p-6">
-                        <div className="flex justify-between items-start mb-3">
-                          <h3 className="text-2xl font-serif text-[#2c2c2c] group-hover:text-[#d4af37] transition-colors duration-300">
-                            {item.name}
-                          </h3>
-                          <span className="text-xl font-serif text-[#d4af37]">
-                            ${item.price.toFixed(2)}
-                          </span>
-                        </div>
-                        <p className="text-gray-600 leading-relaxed">
-                          {item.description}
-                        </p>
+                  {/* Menu Items */}
+                  {category.items.length > 0 && (
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12">
+                        {category.items.map((item) => (
+                          <div
+                            key={item.id}
+                            className="flex justify-between items-start group"
+                          >
+                            <div className="flex-1">
+                              <div className="flex items-center">
+                                <h3 className="text-xl font-medium group-hover:text-yellow-500 transition-colors duration-300">
+                                  {item.name}
+                                </h3>
+                                <div className="flex-1 mx-4 border-b border-dotted border-gray-600"></div>
+                                <span className="text-xl font-medium text-yellow-500">
+                                  ${item.price}
+                                </span>
+                              </div>
+                              <p className="mt-2 text-sm text-gray-400">
+                                {item.description}
+                              </p>
+                            </div>
+                          </div>
+                        ))}
                       </div>
                     </div>
-                  ))}
+                  )}
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </>
         )}
       </div>

@@ -3,88 +3,82 @@ export interface MenuItem {
   name: string;
   description: string;
   price: number;
-  image: string;
+  ingredients?: string;
 }
 
 export interface MenuCategory {
   id: string;
   name: string;
+  subtitle: string;
+  backgroundImage: string;
   items: MenuItem[];
+  with_img: boolean;
 }
 
 export const menuData: MenuCategory[] = [
   {
-    id: 'drinks',
-    name: 'Signature Drinks',
-    items: [
-      {
-        id: 'mojito',
-        name: 'Classic Mojito',
-        description: 'Fresh mint muddled with lime juice, premium rum, and a splash of soda water',
-        price: 12.99,
-        image: 'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&q=80&w=500'
-      },
-      {
-        id: 'soda',
-        name: 'Artisanal Soda',
-        description: 'House-crafted botanical soda with fresh herbs and natural citrus essence',
-        price: 7.99,
-        image: 'https://images.unsplash.com/photo-1581006852262-e4307cf6283a?auto=format&fit=crop&q=80&w=500'
-      },
-      {
-        id: 'lemonade',
-        name: 'Provence Lemonade',
-        description: 'Fresh-squeezed lemons with lavender honey and Mediterranean herbs',
-        price: 8.99,
-        image: 'https://images.unsplash.com/photo-1621263764928-df1444c5e859?auto=format&fit=crop&q=80&w=500'
-      }
-    ]
+    with_img: true,
+    id: "our-menu",
+    name: "OUR MENU",
+    subtitle: "See what we offer",
+    backgroundImage:
+      "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&q=80&w=2070",
+    items: [],
   },
   {
-    id: 'coffee',
-    name: 'Artisan Coffee',
+    with_img: false,
+    id: "main-course",
+    name: "MAIN COURSE",
+    subtitle: "Qualities in each dish",
+    backgroundImage:
+      "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&q=80&w=2070",
     items: [
       {
-        id: 'espresso',
-        name: 'Single Origin Espresso',
-        description: 'Carefully selected beans roasted to perfection for a rich and complex flavor',
-        price: 4.99,
-        image: 'https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?auto=format&fit=crop&q=80&w=500'
+        id: "zuppa-toscana",
+        name: "Super-delicious zuppa toscana",
+        description: "Chicken / Italian / Sausage / Spinach",
+        price: 20,
       },
       {
-        id: 'latte',
-        name: 'Vanilla Bean Latte',
-        description: 'Smooth espresso with steamed milk and Madagascar vanilla',
-        price: 6.99,
-        image: 'https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=500'
+        id: "grilled-chicken",
+        name: "Thai style grilled chicken",
+        description: "Chicken / Italian / Sausage / Spinach",
+        price: 35,
       },
       {
-        id: 'cappuccino',
-        name: 'Artisan Cappuccino',
-        description: 'Perfect balance of espresso, silky steamed milk, and velvety foam',
-        price: 6.49,
-        image: 'https://images.unsplash.com/photo-1534778101976-62847782c213?auto=format&fit=crop&q=80&w=500'
-      }
-    ]
+        id: "chicken-tikka",
+        name: "Chicken tikka masala",
+        description: "Chicken / Italian / Sausage / Spinach",
+        price: 28,
+      },
+      {
+        id: "pork-sausage",
+        name: "Pork sausage from the oven",
+        description: "Chicken / Italian / Sausage / Spinach",
+        price: 44,
+      },
+    ],
   },
   {
-    id: 'desserts',
-    name: 'Decadent Desserts',
+    with_img: true,
+    id: "soups-salads",
+    name: "SOUPS & SALADS",
+    subtitle: "Clean vegetables",
+    backgroundImage:
+      "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&q=80&w=2070",
     items: [
       {
-        id: 'tiramisu',
-        name: 'Classic Tiramisu',
-        description: 'Layers of coffee-soaked ladyfingers and mascarpone cream dusted with cocoa',
-        price: 11.99,
-        image: 'https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&q=80&w=500'
+        id: "noodle-soup",
+        name: "Grandma's Noodle Soup",
+        description: "Chicken / Italian / Sausage / Spinach",
+        price: 26,
       },
       {
-        id: 'cheesecake',
-        name: 'Golden Cheesecake',
-        description: 'Creamy New York style cheesecake with a golden berry compote',
-        price: 12.99,
-        image: 'https://images.unsplash.com/photo-1533134242443-d4fd215305ad?auto=format&fit=crop&q=80&w=500'
-      }
-    ]
-  }
+        id: "broccoli-salad",
+        name: "Cran-Broccoli Salad",
+        description: "Chicken / Italian / Sausage / Spinach",
+        price: 28,
+      },
+    ],
+  },
 ];
