@@ -16,13 +16,14 @@ Built using **Next.js**, **TypeScript**, **TailwindCSS**, and **Vite**, Smart Me
 ---
 
 ## 📝 To-Do List
-1. [ ] Design and implement the landing page.
-2. [ ] Integrate OpenAI API for generating personalized menu suggestions.
-3. [ ] Create a clean and responsive UI using TailwindCSS.
-4. [ ] Add authentication (optional) to save user preferences.
-5. [ ] Optimize performance for faster loading times.
-6. [ ] Write unit tests for critical components.
-7. [ ] Deploy the application to a hosting platform (e.g., Vercel).
+
+### 17/04/2025 
+1. [ ] Implement a previous button in the questionnaire => go back in the step.
+1. [ ] Implement the logique of skip button => to show the full menu.
+1. [ ] Implement a button to see the full menu when i search with ia => button to show all the menu.
+1. [ ] Implement lotti file ( i already find one) in case of loading => loading the api the lottie should appear.
+1. [ ] Implement a backend with express and node to send the request => a post endpoint to fix the authorization issue.
+1. [ ] Improve the UI in case of suggestions of IA => when i get the suggeestion i must see the suggestions in different ui.
 
 ---
 
