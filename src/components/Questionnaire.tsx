@@ -11,7 +11,14 @@ const questions: Question[] = [
   {
     id: "preference",
     text: "What are you in the mood for today?",
-    options: ["Drinks", "Coffee", "Desserts", "I'm not sure"],
+    options: [
+      "Drinks",
+      "Snacks",
+      "Main Course",
+      "Coffee",
+      "Desserts",
+      "I'm not sure",
+    ],
   },
   {
     id: "taste",

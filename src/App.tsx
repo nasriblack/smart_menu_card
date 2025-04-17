@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { menuData } from "./data/menuData";
 import { Utensils } from "lucide-react";
 import { Questionnaire } from "./components/Questionnaire";
+import { useAiRecommendation } from "./api/useOpenRouterImageIa";
 
 function App() {
   const [showQuestionnaire, setShowQuestionnaire] = useState(true);
@@ -9,10 +10,25 @@ function App() {
     null
   );
 
+  const { data, isPending, isSuccess, isIdle, mutateAsync } =
+    useAiRecommendation();
+
+  console.log("checking the react query", data, isPending, isSuccess, isIdle);
+
+  // Step 1: Remove the ```json and ``` markers
+  const cleanedJsonString = data?.replace(/```json\s*|\s*```/g, "") ?? "";
+
+  // Step 2: Parse the cleaned JSON string into an object
+  const response = cleanedJsonString && JSON.parse(cleanedJsonString);
+
+  // Step 3: Verify the result
+  console.log(response);
+
   const handleQuestionnaireComplete = (answers: Record<string, string>) => {
     setUserAnswers(answers);
     setShowQuestionnaire(false);
     console.log("User answers:", answers);
+    mutateAsync(answers);
   };
 
   return (
