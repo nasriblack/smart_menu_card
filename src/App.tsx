@@ -14,6 +14,8 @@ function App() {
   const { data, isPending, mutateAsync } = useAiRecommendation();
   const response = cleaningJsonFunction(data);
 
+  console.log("checking the response", response);
+
   const handleQuestionnaireComplete = (answers: any) => {
     console.log("Questionnaire answers:", answers);
     setShowQuestionnaire(false);
@@ -41,13 +43,22 @@ function App() {
       response?.propositions?.length
     ) {
       // Filter menu items based on AI suggestions and propositions
-      return menuData.filter((category) =>
-        category.items.some(
-          (item) =>
-            response.suggestions?.includes(item.name) ||
-            response.propositions?.includes(item.name)
+      return menuData
+        .filter((category) =>
+          category.items.some(
+            (item) =>
+              response.suggestions?.includes(item.name) ||
+              response.propositions?.includes(item.name)
+          )
         )
-      );
+        .sort((a: any, b: any) => {
+          const aIsSuggestion = response.suggestions?.includes(a.name);
+          const bIsSuggestion = response.suggestions?.includes(b.name);
+
+          if (aIsSuggestion && !bIsSuggestion) return 1;
+          if (!aIsSuggestion && bIsSuggestion) return -1;
+          return 1;
+        });
     } else {
       // If no suggestions, show all
       return menuData;
@@ -63,14 +74,13 @@ function App() {
       response?.suggestions?.length ||
       response?.propositions?.length
     ) {
-      // Show only suggested items and propositions
+      // Filter and then sort the items
       return categoryItems.filter(
         (item: any) =>
           response.suggestions?.includes(item.name) ||
           response.propositions?.includes(item.name)
       );
     } else {
-      // If no suggestions, show all
       return categoryItems;
     }
   };
@@ -86,6 +96,14 @@ function App() {
   };
 
   const filteredMenu = getFilteredMenuItems();
+
+  console.log(
+    "checking the filteredMenu",
+    filteredMenu.sort((a, b) => {
+      console.log("a & b", a.name, b.name);
+      return -1;
+    })
+  );
   const hasRecommendations =
     response?.suggestions?.length > 0 || response?.propositions?.length > 0;
 
@@ -135,7 +153,7 @@ function App() {
                       selections
                     </p>
 
-                    <div className="flex justify-center items-center space-x-6 mt-4">
+                    {/* <div className="flex justify-center items-center space-x-6 mt-4">
                       {response?.suggestions?.length > 0 && (
                         <div className="flex items-center">
                           <span className="inline-block bg-[#d4af37] text-[#2c2c2c] text-xs px-2 py-1 rounded-full font-medium mr-2">
@@ -157,7 +175,7 @@ function App() {
                           </span>
                         </div>
                       )}
-                    </div>
+                    </div> */}
                   </div>
                 )}
 
