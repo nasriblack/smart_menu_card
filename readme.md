@@ -18,7 +18,7 @@ Built using **Next.js**, **TypeScript**, **TailwindCSS**, and **Vite**, Smart Me
 ## 📝 To-Do List
 
 ### 17/04/2025 
-1. [ ] Implement a previous button in the questionnaire => go back in the step.
+1. [X] Implement a previous button in the questionnaire => go back in the step.
 1. [ ] Implement the logique of skip button => to show the full menu.
 1. [ ] Implement a button to see the full menu when i search with ia => button to show all the menu.
 1. [ ] Implement lotti file ( i already find one) in case of loading => loading the api the lottie should appear.
