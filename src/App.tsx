@@ -116,39 +116,6 @@ function App() {
           <Questionnaire onComplete={handleQuestionnaireComplete} />
         ) : (
           <>
-            <div className="mb-12 text-center flex justify-center space-x-6">
-              <button
-                onClick={() => {
-                  setShowQuestionnaire(true);
-                  setSkipClicked(false);
-                  setShowFullMenu(false);
-                }}
-                className="text-[#d4af37] hover:text-[#2c2c2c] hover:bg-[#d4af37] py-2 px-4 rounded transition-colors duration-300"
-              >
-                ← Start Over
-              </button>
-
-              {/* View Full Menu button - only show when we have recommendations and not already showing full menu */}
-              {hasRecommendations && !showFullMenu && (
-                <button
-                  onClick={toggleFullMenu}
-                  className="text-white hover:text-[#d4af37] border border-[#d4af37] py-2 px-6 rounded transition-colors duration-300 font-serif"
-                >
-                  View Full Menu
-                </button>
-              )}
-
-              {/* View Recommendations button - only show when viewing full menu and we have recommendations */}
-              {hasRecommendations && showFullMenu && (
-                <button
-                  onClick={toggleFullMenu}
-                  className="text-white hover:text-[#d4af37] border border-[#d4af37] py-2 px-6 rounded transition-colors duration-300 font-serif"
-                >
-                  View Recommendations
-                </button>
-              )}
-            </div>
-
             {isPending ? (
               <div className="text-white text-center py-12">
                 <div className="animate-pulse text-2xl">
@@ -168,7 +135,6 @@ function App() {
                       selections
                     </p>
 
-                    {/* Explanation for badges */}
                     <div className="flex justify-center items-center space-x-6 mt-4">
                       {response?.suggestions?.length > 0 && (
                         <div className="flex items-center">
@@ -196,7 +162,7 @@ function App() {
                 )}
 
                 {/* Full Menu Header - only show when viewing full menu */}
-                {showFullMenu && (
+                {/* {showFullMenu && (
                   <div className="text-center py-8">
                     <h2 className="text-3xl font-serif text-[#d4af37] mb-2">
                       Complete Menu
@@ -205,7 +171,7 @@ function App() {
                       Explore our entire selection of exquisite dishes
                     </p>
                   </div>
-                )}
+                )} */}
 
                 {filteredMenu.map((category) => (
                   <div key={category.id} className="relative">
@@ -329,23 +295,43 @@ function App() {
                     )}
                   </div>
                 ))}
+                <div className="mb-12 text-center flex justify-center space-x-6">
+                  <button
+                    onClick={() => {
+                      setShowQuestionnaire(true);
+                      setSkipClicked(false);
+                      setShowFullMenu(false);
+                    }}
+                    className="text-[#d4af37] hover:text-[#2c2c2c] hover:bg-[#d4af37] py-2 px-4 rounded transition-colors duration-300"
+                  >
+                    ← Start Over
+                  </button>
+
+                  {/* View Full Menu button - only show when we have recommendations and not already showing full menu */}
+                  {hasRecommendations && !showFullMenu && (
+                    <button
+                      onClick={toggleFullMenu}
+                      className="text-white hover:text-[#d4af37] border border-[#d4af37] py-2 px-6 rounded transition-colors duration-300 font-serif"
+                    >
+                      View Full Menu
+                    </button>
+                  )}
+
+                  {/* View Recommendations button - only show when viewing full menu and we have recommendations */}
+                  {hasRecommendations && showFullMenu && (
+                    <button
+                      onClick={toggleFullMenu}
+                      className="text-white hover:text-[#d4af37] border border-[#d4af37] py-2 px-6 rounded transition-colors duration-300 font-serif"
+                    >
+                      View Recommendations
+                    </button>
+                  )}
+                </div>
               </div>
             )}
           </>
         )}
       </div>
-
-      {/* Full Menu Button at the bottom if we have recommendations and not already showing full menu */}
-      {!showQuestionnaire && hasRecommendations && !showFullMenu && (
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-center">
-          <button
-            onClick={toggleFullMenu}
-            className="text-white w-full hover:text-[#d4af37] transition-colors duration-300 font-serif text-xl border border-[#d4af37] py-3 rounded-lg"
-          >
-            View Full Menu
-          </button>
-        </div>
-      )}
 
       {!showQuestionnaire && (
         <footer className="bg-[#2c2c2c] text-white py-8">

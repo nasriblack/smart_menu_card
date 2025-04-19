@@ -24,6 +24,7 @@ Built using **Next.js**, **TypeScript**, **TailwindCSS**, and **Vite**, Smart Me
 1. [ ] Implement lotti file ( i already find one) in case of loading => loading the api the lottie should appear.
 1. [ ] Implement a backend with express and node to send the request => a post endpoint to fix the authorization issue.
 1. [ ] Improve the UI in case of suggestions of IA => when i get the suggeestion i must see the suggestions in different ui.
+1. [ ] Update the UI to let the user see the legend and start Over , View Full Menu also as v.1 
 
 ---
 
