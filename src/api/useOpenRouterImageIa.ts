@@ -21,7 +21,7 @@ export const useAiRecommendation = () => {
           {
             role: "system",
             content:
-              "You are a helpful restaurant assistant. Based on the user's preferences, recommend 2–3 food items from the menu. If they only pick food, optionally recommend drinks that would pair well. Return your response as a JSON object with two keys: 'suggestions' (an array of food names), and 'propositions' (an array of drink names). Do not include descriptions or explanations. Just the names in arrays.",
+              "You are a helpful restaurant assistant. Based on the user's preferences, recommend 2–3 food items from the menu. If the user selects food, optionally suggest drinks that would pair well as complementary options. Return your response as a JSON object with two keys: 'suggestions' (an array of selected food or drink items), and 'propositions' (an array of complementary drink names). Only include drinks in the 'propositions' array if the user selects food. If the user selects only drinks, leave the 'propositions' array empty. Do not include descriptions or explanations—just the names in arrays.",
           },
           {
             role: "user",
