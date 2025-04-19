@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ChevronRight, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, X } from "lucide-react";
 
 interface Question {
   id: string;
@@ -62,6 +62,11 @@ export const Questionnaire: React.FC<QuestionnaireProps> = ({
       onComplete(newAnswers);
     }
   };
+  const handlePrevious = () => {
+    if (currentQuestion > 0) {
+      setCurrentQuestion((prev) => prev - 1);
+    }
+  };
 
   const skipQuestionnaire = () => {
     setShowQuestionnaire(false);
@@ -70,48 +75,79 @@ export const Questionnaire: React.FC<QuestionnaireProps> = ({
   const question = questions[currentQuestion];
 
   return (
-    <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8">
-      <div className="mb-8">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-serif text-[#2c2c2c]">
-            Let us help you decide
-          </h2>
-          <button
-            onClick={skipQuestionnaire}
-            className="text-gray-500 hover:text-gray-700 flex items-center gap-2"
-          >
-            Skip <X size={20} />
-          </button>
+    <div>
+      <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-8">
+        <div className="mb-8">
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-3xl font-serif text-[#2c2c2c]">
+              Let us help you decide
+            </h2>
+            <button
+              onClick={skipQuestionnaire}
+              className="text-gray-500 hover:text-gray-700 flex items-center gap-2"
+            >
+              Skip <X size={20} />
+            </button>
+          </div>
+          <div className="flex justify-between mb-4">
+            {questions.map((_, index) => (
+              <div
+                key={index}
+                className={`h-2 flex-1 mx-1 rounded-full ${
+                  index <= currentQuestion ? "bg-[#d4af37]" : "bg-gray-200"
+                }`}
+              />
+            ))}
+          </div>
+          <h3 className="text-2xl font-serif text-[#2c2c2c] mb-2">
+            {question.text}
+          </h3>
         </div>
-        <div className="flex justify-between mb-4">
-          {questions.map((_, index) => (
-            <div
-              key={index}
-              className={`h-2 flex-1 mx-1 rounded-full ${
-                index <= currentQuestion ? "bg-[#d4af37]" : "bg-gray-200"
-              }`}
-            />
-          ))}
-        </div>
-        <h3 className="text-2xl font-serif text-[#2c2c2c] mb-2">
-          {question.text}
-        </h3>
-      </div>
 
-      <div className="space-y-3">
-        {question.options.map((option) => (
+        <div className="space-y-3">
+          {question.options.map((option) => {
+            const isCheckedAnswer1 = Object.values(answers).includes(option);
+
+            return (
+              <button
+                key={option}
+                onClick={() => handleAnswer(option)}
+                className={`w-full text-left px-6 py-4 rounded-xl border-2 ${
+                  isCheckedAnswer1
+                    ? "border-[#d4af37] bg-[#fff8e7]"
+                    : "border-gray-100"
+                } hover:border-[#d4af37] hover:bg-[#fff8e7] transition-all duration-300 group flex justify-between items-center`}
+              >
+                <span className="text-lg  group-hover:text-[#2c2c2c]">
+                  {option}
+                </span>
+                <ChevronRight className="text-gray-400 group-hover:text-[#d4af37] transition-colors duration-300" />
+              </button>
+            );
+          })}
+        </div>
+        <div className="flex justify-between items-center mt-6">
           <button
-            key={option}
-            onClick={() => handleAnswer(option)}
-            className="w-full text-left px-6 py-4 rounded-xl border-2 border-gray-100 hover:border-[#d4af37] 
-                     hover:bg-[#fff8e7] transition-all duration-300 group flex justify-between items-center"
+            onClick={handlePrevious}
+            className={`flex items-center gap-2 text-gray-500 hover:text-gray-700 transition-colors
+                ${currentQuestion === 0 ? "invisible" : ""}`}
           >
-            <span className="text-lg text-gray-700 group-hover:text-[#2c2c2c]">
-              {option}
-            </span>
-            <ChevronRight className="text-gray-400 group-hover:text-[#d4af37] transition-colors duration-300" />
+            <ChevronLeft size={20} />
+            Previous
           </button>
-        ))}
+          <div className="flex gap-2">
+            {Array(questions.length)
+              .fill(0)
+              .map((_, i) => (
+                <div
+                  key={i}
+                  className={`w-2 h-2 rounded-full ${
+                    i === currentQuestion ? "bg-[#d4af37]" : "bg-gray-200"
+                  }`}
+                />
+              ))}
+          </div>
+        </div>
       </div>
     </div>
   );
