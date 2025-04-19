@@ -39,13 +39,9 @@ const questions: Question[] = [
 
 interface QuestionnaireProps {
   onComplete: (answers: Record<string, string>) => void;
-  setShowQuestionnaire: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const Questionnaire: React.FC<QuestionnaireProps> = ({
-  onComplete,
-  setShowQuestionnaire,
-}) => {
+export const Questionnaire: React.FC<QuestionnaireProps> = ({ onComplete }) => {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState<Record<string, string>>({});
 
@@ -62,6 +58,7 @@ export const Questionnaire: React.FC<QuestionnaireProps> = ({
       onComplete(newAnswers);
     }
   };
+
   const handlePrevious = () => {
     if (currentQuestion > 0) {
       setCurrentQuestion((prev) => prev - 1);
@@ -69,7 +66,8 @@ export const Questionnaire: React.FC<QuestionnaireProps> = ({
   };
 
   const skipQuestionnaire = () => {
-    setShowQuestionnaire(false);
+    // Pass empty object to indicate we're skipping
+    onComplete({});
   };
 
   const question = questions[currentQuestion];
@@ -84,7 +82,8 @@ export const Questionnaire: React.FC<QuestionnaireProps> = ({
             </h2>
             <button
               onClick={skipQuestionnaire}
-              className="text-gray-500 hover:text-gray-700 flex items-center gap-2"
+              className="text-gray-500 hover:text-gray-700 flex items-center gap-2 transition-colors duration-300"
+              aria-label="Skip questionnaire"
             >
               Skip <X size={20} />
             </button>
@@ -106,19 +105,20 @@ export const Questionnaire: React.FC<QuestionnaireProps> = ({
 
         <div className="space-y-3">
           {question.options.map((option) => {
-            const isCheckedAnswer1 = Object.values(answers).includes(option);
+            const isSelected = answers[question.id] === option;
 
             return (
               <button
                 key={option}
                 onClick={() => handleAnswer(option)}
                 className={`w-full text-left px-6 py-4 rounded-xl border-2 ${
-                  isCheckedAnswer1
+                  isSelected
                     ? "border-[#d4af37] bg-[#fff8e7]"
                     : "border-gray-100"
                 } hover:border-[#d4af37] hover:bg-[#fff8e7] transition-all duration-300 group flex justify-between items-center`}
+                aria-selected={isSelected}
               >
-                <span className="text-lg  group-hover:text-[#2c2c2c]">
+                <span className="text-lg group-hover:text-[#2c2c2c]">
                   {option}
                 </span>
                 <ChevronRight className="text-gray-400 group-hover:text-[#d4af37] transition-colors duration-300" />
@@ -126,26 +126,28 @@ export const Questionnaire: React.FC<QuestionnaireProps> = ({
             );
           })}
         </div>
+
         <div className="flex justify-between items-center mt-6">
           <button
             onClick={handlePrevious}
             className={`flex items-center gap-2 text-gray-500 hover:text-gray-700 transition-colors
                 ${currentQuestion === 0 ? "invisible" : ""}`}
+            disabled={currentQuestion === 0}
+            aria-label="Previous question"
           >
             <ChevronLeft size={20} />
             Previous
           </button>
           <div className="flex gap-2">
-            {Array(questions.length)
-              .fill(0)
-              .map((_, i) => (
-                <div
-                  key={i}
-                  className={`w-2 h-2 rounded-full ${
-                    i === currentQuestion ? "bg-[#d4af37]" : "bg-gray-200"
-                  }`}
-                />
-              ))}
+            {questions.map((_, i) => (
+              <div
+                key={i}
+                className={`w-2 h-2 rounded-full ${
+                  i === currentQuestion ? "bg-[#d4af37]" : "bg-gray-200"
+                }`}
+                aria-current={i === currentQuestion ? "true" : "false"}
+              />
+            ))}
           </div>
         </div>
       </div>
