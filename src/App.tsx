@@ -6,6 +6,9 @@ import { Questionnaire } from "./components/Questionnaire";
 import { useAiRecommendation } from "./api/useOpenRouterImageIa";
 import { cleaningJsonFunction } from "./utils/cleanedJsonString";
 
+import Lottie from "react-lottie";
+import animationLoader from "./lotties/loading_animation.json";
+
 function App() {
   const [showQuestionnaire, setShowQuestionnaire] = useState(true);
   const [skipClicked, setSkipClicked] = useState(false);
@@ -13,6 +16,15 @@ function App() {
 
   const { data, isPending, mutateAsync } = useAiRecommendation();
   const response = cleaningJsonFunction(data);
+
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationLoader,
+    rendererSettings: {
+      preserveAspectRatio: "xMidYMid slice",
+    },
+  };
 
   console.log("checking the response", response);
 
@@ -57,7 +69,7 @@ function App() {
 
           if (aIsSuggestion && !bIsSuggestion) return 1;
           if (!aIsSuggestion && bIsSuggestion) return -1;
-          return 1;
+          return 0;
         });
     } else {
       // If no suggestions, show all
@@ -97,13 +109,6 @@ function App() {
 
   const filteredMenu = getFilteredMenuItems();
 
-  console.log(
-    "checking the filteredMenu",
-    filteredMenu.sort((a, b) => {
-      console.log("a & b", a.name, b.name);
-      return -1;
-    })
-  );
   const hasRecommendations =
     response?.suggestions?.length > 0 || response?.propositions?.length > 0;
 
@@ -136,9 +141,7 @@ function App() {
           <>
             {isPending ? (
               <div className="text-white text-center py-12">
-                <div className="animate-pulse text-2xl">
-                  Loading recommendations...
-                </div>
+                <Lottie options={defaultOptions} height={400} width={400} />
               </div>
             ) : (
               <div className="bg-[#2c2c2c] text-white">
