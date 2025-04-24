@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useMutation } from "@tanstack/react-query";
 import { formatMenuForAI } from "../utils/formatMenuForAI";
+import CryptoJS from "crypto-js";
 
 export const useAiRecommendation = () => {
   return useMutation({
@@ -37,14 +38,26 @@ export const useAiRecommendation = () => {
           },
         ],
       };
+
+      const payload = JSON.stringify(body);
+      const secret = import.meta.env.VITE_SECRET_KEY;
+      const signature = CryptoJS.HmacSHA256(payload, secret).toString(
+        CryptoJS.enc.Hex
+      );
+
+      const payloadBody = {
+        payload,
+        signature,
+      };
+
       console.log("checking the body", body);
-      const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      const res = await fetch("http://localhost:3001/chat", {
         method: "POST",
         headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_API_KEY_OPEN_ROUTER}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(body),
+
+        body: JSON.stringify(payloadBody),
       });
 
       const data = await res.json();
