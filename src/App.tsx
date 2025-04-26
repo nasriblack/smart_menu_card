@@ -152,44 +152,8 @@ function App() {
                       Based on your preferences, we think you'll love these
                       selections
                     </p>
-
-                    {/* <div className="flex justify-center items-center space-x-6 mt-4">
-                      {response?.suggestions?.length > 0 && (
-                        <div className="flex items-center">
-                          <span className="inline-block bg-[#d4af37] text-[#2c2c2c] text-xs px-2 py-1 rounded-full font-medium mr-2">
-                            Recommended
-                          </span>
-                          <span className="text-sm text-gray-300">
-                            Main recommendations
-                          </span>
-                        </div>
-                      )}
-
-                      {response?.propositions?.length > 0 && (
-                        <div className="flex items-center">
-                          <span className="inline-block bg-teal-500 text-white text-xs px-2 py-1 rounded-full font-medium mr-2">
-                            Pairs Well
-                          </span>
-                          <span className="text-sm text-gray-300">
-                            Complementary items
-                          </span>
-                        </div>
-                      )}
-                    </div> */}
                   </div>
                 )}
-
-                {/* Full Menu Header - only show when viewing full menu */}
-                {/* {showFullMenu && (
-                  <div className="text-center py-8">
-                    <h2 className="text-3xl font-serif text-[#d4af37] mb-2">
-                      Complete Menu
-                    </h2>
-                    <p className="text-gray-300">
-                      Explore our entire selection of exquisite dishes
-                    </p>
-                  </div>
-                )} */}
 
                 {filteredMenu.map((category) => (
                   <div key={category.id} className="relative">
