@@ -15,6 +15,12 @@ export interface MenuCategory {
   with_img: boolean;
 }
 
+export interface Question {
+  id: string;
+  text: string;
+  options: string[];
+}
+
 export const menuData: MenuCategory[] = [
   {
     with_img: true,
@@ -147,6 +153,36 @@ export const menuData: MenuCategory[] = [
         description: "Mixed berries / Banana / Yogurt / Chia seeds",
         price: 14,
       },
+    ],
+  },
+];
+
+export const questions: Question[] = [
+  {
+    id: "preference",
+    text: "What are you in the mood for today?",
+    options: [
+      "Drinks",
+      "Snacks",
+      "Main Course",
+      "Coffee",
+      "Desserts",
+      "I'm not sure",
+    ],
+  },
+  {
+    id: "taste",
+    text: "Do you prefer something...",
+    options: ["Sweet", "Refreshing", "Rich & Bold", "Light & Subtle"],
+  },
+  {
+    id: "occasion",
+    text: "What's the occasion?",
+    options: [
+      "Casual Meeting",
+      "Quick Break",
+      "Special Celebration",
+      "Just Browsing",
     ],
   },
 ];
