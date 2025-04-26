@@ -26,10 +26,7 @@ function App() {
     },
   };
 
-  console.log("checking the response", response);
-
   const handleQuestionnaireComplete = (answers: any) => {
-    console.log("Questionnaire answers:", answers);
     setShowQuestionnaire(false);
 
     // Only call API if we have actual answers (not skipped)

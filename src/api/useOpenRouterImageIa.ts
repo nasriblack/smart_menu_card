@@ -6,16 +6,9 @@ import CryptoJS from "crypto-js";
 export const useAiRecommendation = () => {
   return useMutation({
     mutationFn: async ({ preference, taste, occasion }: any) => {
-      console.log("checking the payload", {
-        preference,
-        taste,
-        occasion,
-      });
       const preferencesText = `I'm looking for ${preference.toLowerCase()}, I prefer something ${taste.toLowerCase()}, and this is for a ${occasion.toLowerCase()}.`;
-      console.log("cheecking the preferences", preferencesText);
       const formattedMenu = formatMenuForAI();
 
-      console.log("checking the menutext", formattedMenu);
       const body = {
         model: "google/gemini-flash-1.5",
         messages: [
@@ -50,7 +43,6 @@ export const useAiRecommendation = () => {
         signature,
       };
 
-      console.log("checking the body", body);
       const res = await fetch("http://localhost:3001/chat", {
         method: "POST",
         headers: {
