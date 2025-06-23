@@ -11,11 +11,23 @@ import LoadingLottie from "./components/app/LoadingLottie";
 import BottomMenuComponent from "./components/app/BottomMenuComponent";
 import HeaderMenuComponent from "./components/app/HeaderMenuComponent";
 import HeroSection from "./components/app/HeroSection";
+import { MessageSquare } from "lucide-react";
+import { ComplaintForm } from "./utils/types";
+import CompaintFormModal from "./components/CompaintFormModal";
 
 function App() {
   const [showQuestionnaire, setShowQuestionnaire] = useState(true);
   const [skipClicked, setSkipClicked] = useState(false);
   const [showFullMenu, setShowFullMenu] = useState(false);
+  const [showComplaintForm, setShowComplaintForm] = useState(false);
+  const [complaintForm, setComplaintForm] = useState<ComplaintForm>({
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+    priority: "medium",
+  });
 
   const { data, isPending, mutateAsync } = useAiRecommendation();
   const response = cleaningJsonFunction(data);
@@ -112,6 +124,34 @@ function App() {
   const hasRecommendations =
     response?.suggestions?.length > 0 || response?.propositions?.length > 0;
 
+  const handleComplaintFormChange = (
+    field: keyof ComplaintForm,
+    value: string
+  ) => {
+    setComplaintForm((prev: any) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const handleComplaintSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    console.log("Complaint submitted to manager:", complaintForm);
+    // Here you would typically send the complaint to your backend/email service
+    alert(
+      "Your complaint has been sent to the manager. We will contact you soon!"
+    );
+    setShowComplaintForm(false);
+    setComplaintForm({
+      name: "",
+      email: "",
+      phone: "",
+      subject: "",
+      message: "",
+      priority: "medium",
+    });
+  };
+
   return (
     <div className="min-h-screen bg-[#2c2c2c]">
       {/* Hero Section */}
@@ -159,6 +199,24 @@ function App() {
           </>
         )}
       </div>
+
+      <button
+        onClick={() => setShowComplaintForm(true)}
+        className="fixed right-6 top-1/2 transform -translate-y-1/2 bg-red-500 hover:bg-red-600 text-white p-4 rounded-full shadow-2xl transition-all duration-300 hover:scale-110 z-50"
+        title="Make a complaint"
+      >
+        <MessageSquare size={24} />
+      </button>
+
+      {/* Complaint Form Modal */}
+      {showComplaintForm && (
+        <CompaintFormModal
+          complaintForm={complaintForm}
+          handleComplaintFormChange={handleComplaintFormChange}
+          handleComplaintSubmit={handleComplaintSubmit}
+          setShowComplaintForm={setShowComplaintForm}
+        />
+      )}
 
       {!showQuestionnaire && <FooterComponent />}
     </div>
